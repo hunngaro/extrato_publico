@@ -5,9 +5,9 @@ node (label: 'build && linux') {
   }
 
   stage("Main build") {
-     
+    docker.image('node:8').pull()
     // Permorming Install and Lint
-    docker.image('node:10').inside {
+    docker.image('node:8').inside {
       stage('Install') {
         sh label:
           'Running npm install',
@@ -22,7 +22,7 @@ node (label: 'build && linux') {
 
       }
     stage ('Build') {
-      docker.image('node:10').inside {
+      docker.image('node:8').inside {
         sh label:
           'Running npm run build',
         script: '''
