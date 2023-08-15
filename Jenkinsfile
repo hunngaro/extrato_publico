@@ -1,41 +1,48 @@
+pipeline {
+ agent any
 
-node (label: 'build && linux') {
-  stage('Clean Workspace'){
-    cleanWs()
-  }
-
-  stage("Main build") {
-    docker.image('node:8').pull()
-
-    stage('Checkout SCM') {
-    }
+tools { 
     
-    // Permorming Install and Lint
-    docker.image('node:8').inside {
-      stage('Install') {
-        sh label:
-          'Running npm install',
-        script: '''
-          node --version
-          cd extrato-publico
-          npm install
-        '''
-      }
-
+        git 'localGit'
+        jdk 'localJava'
+        nodejs 'localNode'
+}
+ stages{
+  stage('Init'){
+   steps{
+     sh '''#!/bin/bash
+     echo "JAVA_HOME = ${JAVA_HOME}";
+     echo "PATH = ${PATH}";
+     echo "MAVEN_HOME = ${M2_HOME}";
+     
+     npm install -g @angular/cli@7.3.8;
+     npm install
+    '''
+    
+ 
+    //readFileStep();
+    println "Init success..";
     }
-
-    stage ('Build') {
-      docker.image('node:8').inside {
-        sh label:
-          'Running npm run build',
-        script: '''
-          node --version
-          cd extrato-publico
-          npm run build
-        '''
-      }
-    }
+   }
+      
+  stage('Build'){
+   steps{
+    
+    echo "Starting build ...."
+    sh '''#!/bin/bash
+          ng build --aot --prod
+     '''
+    println "BUILD NUMBER = $BUILD_NUMBER"
+    println "Build Success.."
+   }
+   post {  
+          always {
+            -----------Post build steps ------
+    
+           }
+    
+       }
+   
   }
-
-
+}
 }
