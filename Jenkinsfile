@@ -1,12 +1,6 @@
 pipeline {
  agent any
 
-tools { 
-    
-        git 'localGit'
-        jdk 'localJava'
-        nodejs 'localNode'
-}
  stages{
   stage('Init'){
    steps{
@@ -37,7 +31,6 @@ tools {
    }
    post {  
           always {
-            "-----------Post build steps ------"
     
            }
     
