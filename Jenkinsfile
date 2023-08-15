@@ -6,6 +6,10 @@ node (label: 'build && linux') {
 
   stage("Main build") {
     docker.image('node:8').pull()
+
+    stage('Checkout SCM') {
+    }
+    
     // Permorming Install and Lint
     docker.image('node:8').inside {
       stage('Install') {
@@ -13,21 +17,20 @@ node (label: 'build && linux') {
           'Running npm install',
         script: '''
           node --version
-          cd hello-world-node
+          cd extrato-publico
           npm install
         '''
       }
 
     }
 
-      }
     stage ('Build') {
       docker.image('node:8').inside {
         sh label:
           'Running npm run build',
         script: '''
           node --version
-          cd hello-world-node
+          cd extrato-publico
           npm run build
         '''
       }
@@ -35,3 +38,4 @@ node (label: 'build && linux') {
   }
 
 
+}
