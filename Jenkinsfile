@@ -30,6 +30,7 @@ pipeline {
      '''
     println "BUILD NUMBER = $BUILD_NUMBER"
     println "Build Success.."
+    println " Release Notes: $env.Release_Notes"
    }
    
   }
