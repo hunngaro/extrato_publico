@@ -29,12 +29,6 @@ pipeline {
     println "BUILD NUMBER = $BUILD_NUMBER"
     println "Build Success.."
    }
-   post {  
-          always {
-    
-           }
-    
-       }
    
   }
 }
