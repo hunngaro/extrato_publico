@@ -37,7 +37,7 @@ pipeline {
 
   stage('Release Notes'){
     steps{
-      sudo docker run -p 3000:3000 -e REQUEST_METHOD='POST' -e  VERSION="$VERSION" -e ANCERSTORS="4015227154" -e DESCRIPTION="$DESCRIPTION" -e FEATURES="$FEATURES" -e BUGS="$BUGS" -e PROBLEMS="$PROBLEMS" -e PULL_REQUEST="$PULL_REQUEST" release-notes
+      sh 'sudo docker run -p 3000:3000 -e REQUEST_METHOD='POST' -e  VERSION="$VERSION" -e ANCERSTORS="4015227154" -e DESCRIPTION="$DESCRIPTION" -e FEATURES="$FEATURES" -e BUGS="$BUGS" -e PROBLEMS="$PROBLEMS" -e PULL_REQUEST="$PULL_REQUEST" release-notes'
     }
   }
 }
